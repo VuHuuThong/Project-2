@@ -36,6 +36,16 @@ public class BuildingEntity {
  private String modifiedby;
  private String managername;
  private String managerphonenumber;
+ private String emptyarea;
+public String getEmptyarea() {
+	return emptyarea;
+}
+public void setEmptyarea(String emptyarea) {
+	this.emptyarea = emptyarea;
+}
+public void setServicefee(Integer servicefee) {
+	this.servicefee = servicefee;
+}
 public Integer getId() {
 	return id;
 }
@@ -234,6 +244,7 @@ public String getManagerphonenumber() {
 public void setManagerphonenumber(String managerphonenumber) {
 	this.managerphonenumber = managerphonenumber;
 }
+
  
  
  

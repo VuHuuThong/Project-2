@@ -11,7 +11,7 @@ public class BuildingDTO {
    private String emptyArea;
    private Long rentPrice;
    private String serviceFee;
-   private Long brokerageFee;
+   private Float brokerageFee;
 
 public String getManagerName() {
 	return managerName;
@@ -55,10 +55,10 @@ public String getServiceFee() {
 public void setServiceFee(String serviceFee) {
 	this.serviceFee = serviceFee;
 }
-public Long getBrokerageFee() {
+public Float getBrokerageFee() {
 	return brokerageFee;
 }
-public void setBrokerageFee(Long brokerageFee) {
+public void setBrokerageFee(Float brokerageFee) {
 	this.brokerageFee = brokerageFee;
 }
 public String getName() {
