@@ -26,7 +26,7 @@ public class BuildingRepositoryImpl implements BuildingRepository {
 		
 		String staffId =( String)params.get("staffId");
 		if(StringUtil.checkString(staffId)) {
-			sql.append("INNER JOIN assignmentbuilding ON b.id = assignmentbuilding.buildingid ");
+			sql.append("INNER JOIN assignmentbuilding ab ON b.id = ab.buildingid ");
 		}
 		if(typeCode !=null && typeCode.size()!=0) {
 			sql.append("INNER JOIN buildingrenttype ON b.id = buildingrenttype.buildingid ");
