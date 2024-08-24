@@ -1,47 +1,110 @@
 package com.javaweb.repository.entity;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+@Entity
+@Table(name="building")
 public class BuildingEntity {
+@Id
+@GeneratedValue(strategy= GenerationType.IDENTITY)
  private Integer id;
+ 
+ @Column(name="name")
  private String name;
+ @Column(name="street")
  private String street;
+ @Column(name="ward")
  private String ward;
- private Integer districtid;
+ @Column(name="structure")
  private String structure;
+ @Column(name="numberofbasement")
  private Integer numberofbasement;
+ @Column(name="floorarea")
  private Integer floorarea;
+ @Column(name="direction")
  private String direction;
+ @Column(name="level")
  private String level;
+ @Column(name="rentprice")
  private Integer rentprice;
+ @Column(name="rentpricedescription")
  private String rentpricedescription;
+ @Column(name="servicefee")
  private Integer servicefee;
+ @Column(name="carfee")
  private String carfee;
+ @Column(name="motorbikefee")
  private String motorbikefee;
+ @Column(name="overtimefee")
  private String overtimefee;
+ @Column(name="waterfee")
  private String waterfee;
+ @Column(name="eletricityfee")
  private String eletricityfee;
+ @Column(name="deposit")
  private String deposit;
+ @Column(name="payment")
  private String payment;
+ @Column(name="renttime")
  private String renttime;
+ @Column(name="decorationtime")
  private String decorationtime;
+ @Column(name="brokeragefee")
  private Float brokeragefee;
+ @Column(name="note")
  private String note;
+ @Column(name="linkofbuilding")
  private String linkofbuilding;
+ @Column(name="map")
  private String map;
+ @Column(name="image")
  private String image;
+ @Column(name="createddate")
  private Date createddate;
+ @Column(name="modifieddate")
  private Date modifieddate;
+ @Column(name="createdby")
  private String createdby;
+ @Column(name="modifiedby")
  private String modifiedby;
+ @Column(name="managername")
  private String managername;
+ @Column(name="managerphonenumber")
  private String managerphonenumber;
- private String emptyarea;
-public String getEmptyarea() {
-	return emptyarea;
+ 
+ 
+ @ManyToOne
+ @JoinColumn(name="districtid")
+ private DistrictEntity district;
+ 
+ @OneToMany(mappedBy = "building" , fetch = FetchType.LAZY)
+ private List<RentAreaEntity> items=new ArrayList<>();
+ 
+ 
+ 
+public List<RentAreaEntity> getItems() {
+	return items;
 }
-public void setEmptyarea(String emptyarea) {
-	this.emptyarea = emptyarea;
+public void setItems(List<RentAreaEntity> items) {
+	this.items = items;
+}
+public DistrictEntity getDistrict() {
+	return district;
+}
+public void setDistrict(DistrictEntity district) {
+	this.district = district;
 }
 public void setServicefee(Integer servicefee) {
 	this.servicefee = servicefee;
@@ -70,12 +133,7 @@ public String getWard() {
 public void setWard(String ward) {
 	this.ward = ward;
 }
-public Integer getDistrictid() {
-	return districtid;
-}
-public void setDistrictid(Integer districtid) {
-	this.districtid = districtid;
-}
+
 public String getStructure() {
 	return structure;
 }
