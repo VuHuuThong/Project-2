@@ -47,7 +47,6 @@ public class BuildingAPI {
 	}
 	
 	@PostMapping(value="/api/building/")
-	
 	public void creatBuilding(@RequestBody BuildingRequestDTO buildingRequestDTO) {
 		 BuildingEntity buildingEntity= new BuildingEntity();
 		 buildingEntity.setName(buildingRequestDTO.getName());

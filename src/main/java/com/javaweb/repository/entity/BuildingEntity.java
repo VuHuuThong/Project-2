@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -43,16 +44,14 @@ public class BuildingEntity {
  private String rentpricedescription;
  @Column(name="servicefee")
  private Integer servicefee;
- @Column(name="carfee")
- private String carfee;
  @Column(name="motorbikefee")
  private String motorbikefee;
  @Column(name="overtimefee")
  private String overtimefee;
  @Column(name="waterfee")
  private String waterfee;
- @Column(name="eletricityfee")
- private String eletricityfee;
+ @Column(name="electricityfee")
+ private String electricityfee;
  @Column(name="deposit")
  private String deposit;
  @Column(name="payment")
@@ -92,8 +91,27 @@ public class BuildingEntity {
  @OneToMany(mappedBy = "building" , fetch = FetchType.LAZY)
  private List<RentAreaEntity> items=new ArrayList<>();
  
+
+ @ManyToMany(mappedBy="buildings", fetch=FetchType.LAZY)
+ private List<RentTypeEntity> rentType=new ArrayList<>();
+ 
+ @ManyToMany(mappedBy = "buildingEntities")
+	private List<UserEntity> userEntities = new ArrayList<UserEntity>();
  
  
+ 
+public List<RentTypeEntity> getRentType() {
+	return rentType;
+}
+public void setRentType(List<RentTypeEntity> rentType) {
+	this.rentType = rentType;
+}
+public List<UserEntity> getUserEntities() {
+	return userEntities;
+}
+public void setUserEntities(List<UserEntity> userEntities) {
+	this.userEntities = userEntities;
+}
 public List<RentAreaEntity> getItems() {
 	return items;
 }
@@ -182,12 +200,7 @@ public Integer getServicefee() {
 public void setServicefee(int i) {
 	this.servicefee = i;
 }
-public String getCarfee() {
-	return carfee;
-}
-public void setCarfee(String carfee) {
-	this.carfee = carfee;
-}
+
 public String getMotorbikefee() {
 	return motorbikefee;
 }
@@ -206,11 +219,12 @@ public String getWaterfee() {
 public void setWaterfee(String waterfee) {
 	this.waterfee = waterfee;
 }
-public String getEletricityfee() {
-	return eletricityfee;
+
+public String getElectricityfee() {
+	return electricityfee;
 }
-public void setEletricityfee(String eletricityfee) {
-	this.eletricityfee = eletricityfee;
+public void setElectricityfee(String electricityfee) {
+	this.electricityfee = electricityfee;
 }
 public String getDeposit() {
 	return deposit;
