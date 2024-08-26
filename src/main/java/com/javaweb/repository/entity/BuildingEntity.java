@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -51,8 +53,8 @@ public class BuildingEntity {
  private String overtimefee;
  @Column(name="waterfee")
  private String waterfee;
- @Column(name="eletricityfee")
- private String eletricityfee;
+ @Column(name="electricityfee")
+ private String electricityfee;
  @Column(name="deposit")
  private String deposit;
  @Column(name="payment")
@@ -92,8 +94,27 @@ public class BuildingEntity {
  @OneToMany(mappedBy = "building" , fetch = FetchType.LAZY)
  private List<RentAreaEntity> items=new ArrayList<>();
  
+
+ @ManyToMany(mappedBy="buildings", fetch=FetchType.LAZY)
+ private List<RentTypeEntity> rentType=new ArrayList<>();
+ 
+ @ManyToMany(mappedBy = "buildingEntities")
+	private List<UserEntity> userEntities = new ArrayList<UserEntity>();
  
  
+ 
+public List<RentTypeEntity> getRentType() {
+	return rentType;
+}
+public List<UserEntity> getUserEntities() {
+	return userEntities;
+}
+public void setUserEntities(List<UserEntity> userEntities) {
+	this.userEntities = userEntities;
+}
+public void setRentType(List<RentTypeEntity> rentType) {
+	this.rentType = rentType;
+}
 public List<RentAreaEntity> getItems() {
 	return items;
 }
@@ -206,11 +227,11 @@ public String getWaterfee() {
 public void setWaterfee(String waterfee) {
 	this.waterfee = waterfee;
 }
-public String getEletricityfee() {
-	return eletricityfee;
+public String getElectricityfee() {
+	return electricityfee;
 }
-public void setEletricityfee(String eletricityfee) {
-	this.eletricityfee = eletricityfee;
+public void setEletricityfee(String electricityfee) {
+	this.electricityfee = electricityfee;
 }
 public String getDeposit() {
 	return deposit;

@@ -26,6 +26,6 @@ public class BuildingSearchBuilderConverter {
 		    .setAreaTo(MapUtil.getObject(params, "areaTo", Integer.class))		    
 		    .setStaffId(MapUtil.getObject(params, "staffId", Integer.class))
 			.build();
- return buildingSearchBuilder;
+            return buildingSearchBuilder;
  }
 }

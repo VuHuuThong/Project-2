@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.javaweb.model.BuildingDTO;
 import com.javaweb.model.BuildingRequestDTO;
+import com.javaweb.repository.BuildingRepository;
 import com.javaweb.repository.entity.BuildingEntity;
 import com.javaweb.repository.entity.DistrictEntity;
 import com.javaweb.service.BuildingService;
@@ -35,53 +36,98 @@ public class BuildingAPI {
     private EntityManager entityManager;
 	@Autowired
 	private BuildingService buildingService;
-	
+	@Autowired
+    private BuildingRepository buildingRepository;
 	@Value("${dev.vu}")
 	private String data;
 	
 	@GetMapping(value="/api/building")
 	public List<BuildingDTO> getBuilding(@RequestParam Map<String, Object> params ,
 			                             @RequestParam(name="typeCode", required=false) List<String> typeCode){
+		
+		
 		List<BuildingDTO> result = buildingService.findAll(params,typeCode);
 		return result;
 	}
 	
-	@PostMapping(value="/api/building/")
-	
-	public void creatBuilding(@RequestBody BuildingRequestDTO buildingRequestDTO) {
-		 BuildingEntity buildingEntity= new BuildingEntity();
-		 buildingEntity.setName(buildingRequestDTO.getName());
-		 buildingEntity.setStreet(buildingRequestDTO.getStreet());
-		 buildingEntity.setWard(buildingRequestDTO.getWard());
-		 DistrictEntity dis= new DistrictEntity();
-		 dis.setId(buildingRequestDTO.getDistrictid());
-		 buildingEntity.setDistrict(dis);
-		 
-		 entityManager.persist(buildingEntity);
-		 System.out.print("ok");
-	}
-	
-	@PutMapping(value="/api/building/")
-	public void updateBuilding(@RequestBody BuildingRequestDTO buildingRequestDTO) {
-		 BuildingEntity buildingEntity= new BuildingEntity();
-		 buildingEntity.setId(5);
-		 buildingEntity.setName(buildingRequestDTO.getName());
-		 buildingEntity.setStreet(buildingRequestDTO.getStreet());
-		 buildingEntity.setWard(buildingRequestDTO.getWard());
-		 DistrictEntity dis= new DistrictEntity();
-		 dis.setId(buildingRequestDTO.getDistrictid());
-		 buildingEntity.setDistrict(dis);
-		 
-		 entityManager.merge(buildingEntity);
-		 System.out.print("ok");
-	}
-	
-	 @DeleteMapping(value="/api/building/{id}")
-	 public void dele(@PathVariable Integer id) {
-		 BuildingEntity buildingEntity= entityManager.find(BuildingEntity.class, id);
-		 entityManager.remove(buildingEntity);
+	@GetMapping(value="/api/building/{id}")
+	public BuildingDTO getBuildingById(@PathVariable Integer id) {
+		BuildingDTO result= buildingService.findById(id);
+		return result;
 		
-	 }
+	}
+
+	@GetMapping(value="/api/building/")
+	public List<BuildingDTO> getBuildingByname(@RequestParam(value="name") String name) {
+		List<BuildingDTO> result= buildingService.findByNameContaining(name);
+		return result;
+	}
+	@GetMapping(value="/api/building/{name}/{street}")
+	public BuildingDTO getBuildingBynameandstreet(@PathVariable String name, @PathVariable String street) {
+		BuildingDTO result= new BuildingDTO();
+		List<BuildingEntity> building = buildingRepository.findByNameContainingAndStreet(name, street);
+		return result;
+	}	
+//	@PutMapping(value="/api/building/")
+//	public void putBuilding(@RequestBody BuildingRequestDTO buildingDTO) {
+//		buildingService.putData(buildingDTO);
+//		System.out.print("ok");
+//	}
+//
+//	@PutMapping(value="/api/building/")
+//	public void updatedBuilding(@RequestBody BuildingRequestDTO buildingRequestDTO) {
+//		BuildingEntity builEntity =buildingRepository.findById(buildingRequestDTO.getId()).get() ;
+//		builEntity.setName(buildingRequestDTO.getName());
+//		builEntity.setStreet(buildingRequestDTO.getStreet());
+//		builEntity.setWard(buildingRequestDTO.getWard());
+//		DistrictEntity dis = new DistrictEntity();
+//		dis.setId(buildingRequestDTO.getDistrictid());
+//		builEntity.setDistrict(dis);
+//		buildingRepository.save(builEntity);
+//		System.out.print("ok");
+//	}
+//	
+//	@DeleteMapping(value="/api/building/{id}")
+//	public void deleteById(@PathVariable Integer id) {
+//		buildingRepository.deleteById(id);
+//	}
+//	@DeleteMapping(value="/api/building/{ids}")
+//	public void deleteByIds(@PathVariable Integer[] ids) {
+//		buildingRepository.deleteByIdIn(ids);
+//	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
 	
 
 }
